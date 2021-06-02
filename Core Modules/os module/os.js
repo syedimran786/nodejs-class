@@ -30,3 +30,4 @@ else
 {
     console.log("Your Platform is not supported pls go with alternative");
 }
+

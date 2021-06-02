@@ -79,3 +79,35 @@ const fs = require('fs');
 // 3.Duplex-->Both read and write
 // 4.Transform-->Same as Duplex but output is depends on input of another steam
 
+//! 1.Write Stream-->To write the data
+// let writeStream=fs.createWriteStream('jsp.txt');
+
+// writeStream.write("Hello Bangalore");
+
+
+//! 2.ReadStream-->To Read The Data
+// let readStream=fs.createReadStream("dinga.txt","utf-8");
+
+
+// readStream.on("data", chunk=>
+// {
+//     console.log("------------Reading Data-------------");
+
+//     writeStream.write(chunk);
+// })
+
+// readStream.on("end", err=>
+// {
+//     if(err)throw err;
+//     console.log("----------Data Red Successfully------------");
+// })
+
+
+//!3.Duplex-->Both read and write
+
+let writeStream=fs.createWriteStream("jsp.txt");
+
+
+let readStream=fs.createReadStream("dinga.txt","utf-8");
+
+readStream.pipe(writeStream);

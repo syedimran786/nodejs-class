@@ -1,0 +1,158 @@
+//! Steps to create the server
+    // 1.Load or import http module;
+    // 2.Create a server by using a method called createServer();
+    // 3.Listen the server on some port by using listen();
+
+//! Sending Response to Client
+
+// 1.Set the headers
+// 2.send the response using res.write()
+// 3.End the response by using res.end()
+
+
+// console.log(req.body);
+        // console.log(req.url); //!http://localhost:5000/(/)
+        // console.log(req.method);
+
+// ! Creating Server
+
+    const http = require('http');
+
+    const server=http.createServer((req,res)=>
+    {
+        res.setHeader("content-type", "text");
+        // res.write("Hello I am Home Page");
+        res.end("Hello I am Home Page");// Oly String type of arguments
+    });
+
+// Http methods
+
+1.POST--->To Create the Data (C)
+2.GET---->To Fetch the Data (R)
+3.PUT---->To Update the Data(U)
+4.DELETE--->To Delete the Data(D)
+5.PATCH--->To Update only some portion of Data
+
+//Http Status Codes---->To send status of response
+
+HTTP response status codes
+1.Informational responses ( 100 – 199 )--->Default
+2.Successful responses ( 200 – 299 )
+3.Redirects ( 300 – 399 )
+4.Client errors ( 400 – 499 )
+5.Server errors ( 500 – 599 )
+
+2.Successful responses ( 200 – 299 )
+
+1.200
+The HTTP 200 OK success status response code indicates that the request has succeeded.
+ A 200 response is cacheable by default. The meaning of a success depends on the HTTP 
+ request method: GET : 
+The resource has been fetched and is transmitted in the message body.
+
+2.201
+The HTTP 201 Created success status response code indicates that the request has succeeded 
+and has led to the creation of a resource
+
+3.202
+202 Accepted. The request has been accepted for processing, but the processing has not 
+been completed. The request might or might not eventually be acted upon, 
+as it might be disallowed when 
+processing actually takes place.
+
+//* Sending HTML File as Response
+
+const server=http.createServer((req,res)=>
+    {
+       res.setHeader("content-type", "text/html");
+       res.statusCode=200;
+
+    //    fs.readFile("./index.html", "utf-8", (err,fileData)=>
+    //    {
+    //        if(err)throw err;
+    //        res.end(fileData)
+    //    })
+
+    fs.createReadStream("./index.html","utf-8").pipe(res);//No need to use res.end()
+      
+    });
+
+//What is routing?
+Routing defines the way in which the client requests are
+ handled by the application endpoints.(Redirecting to the different pages)
+
+ // ----------Routing using if else conditions---------
+
+  const server=http.createServer((req,res)=>
+    {
+        
+        if(req.url==="/")
+        {
+            res.writeHead(200,{"content-type":"text/html"});
+            fs.createReadStream("./views/home.html","utf-8").pipe(res)
+        }
+        else  if(req.url==="/about")
+        {
+            res.writeHead(200,{"content-type":"text/html"});
+            fs.createReadStream("./views/about.html","utf-8").pipe(res)
+        }
+        else  if(req.url==="/login")
+        {
+            res.writeHead(200,{"content-type":"text/html"});
+            fs.createReadStream("./views/login.html","utf-8").pipe(res)
+        }
+        else  if(req.url==="/services")
+        {
+            res.writeHead(200,{"content-type":"text/html"});
+            fs.createReadStream("./views/services.html","utf-8").pipe(res)
+        }
+        else if(req.url==="/style.css")
+        {
+            res.writeHead(200,{"content-type":"text/css"});
+            fs.createReadStream("./views/style.css","utf-8").pipe(res)
+        }
+        else
+        {
+            res.writeHead(404,{"content-type":"text/html"});
+            fs.createReadStream("./views/404.html","utf-8").pipe(res)
+        }
+
+        //--------------Routing using switch case------------------------
+
+        const server=http.createServer((req,res)=>
+    {
+        let path="./views";
+
+        switch(req.url)
+        {
+            case "/":path+="/home.html";
+            break;
+
+            case "/about":path+="/about.html";
+            break;
+
+            case "/login":path+="/login.html";
+            break;
+
+            case "/services":path+="/services.html";
+            break;
+
+            case "/style.css":res.writeHead(200,{"content-type":"text/css"});
+                path+="/style.css";
+            break;
+            
+            case "/service":
+                path+="/services.html"
+                
+            break;
+
+            case "/contact":
+                path+="/login.html"
+                
+            break;
+
+           default:res.writeHead(404,{"content-type":"text/html"});
+               path+="/404.html"
+        }
+        fs.createReadStream(path).pipe(res);
+    });

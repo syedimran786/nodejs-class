@@ -76,6 +76,24 @@
                 //todo -->Read The Files
                 //todo -->Update The files
                 //todo -->Delete The files
-We can Perform File Operations in 2 ways 
+//!We can Perform File Operations in 2 ways 
         //1.Synchronous 
         //2.Asynchronous
+
+
+//!nodemon
+// nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+
+// nodemon does not require any additional changes to your code or method of development. nodemon is a replacement wrapper for node. To use nodemon, replace the word node on the command
+//  line when executing your script.
+
+//! Global npm packages Location
+// C:\Users\faculty-pc\AppData\Roaming\npm\node_modules
+
+//! Steps for mongodb connections
+
+// 1.Install Mongodb module (npm i mongodb)
+// 2.Import Mongodb.MongoClient
+// 3.Create a uri/url
+// 4.create a connection by using connect() of mongoclient
+// 5.Create a db using db() present in database object
